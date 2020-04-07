@@ -6,4 +6,5 @@ class Item < ApplicationRecord
   belongs_to :user
   belongs_to :brand
   has_one :late
+  accepts_nested_attributes_for :items_images
 end
