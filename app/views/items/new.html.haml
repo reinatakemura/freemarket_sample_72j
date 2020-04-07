@@ -3,7 +3,7 @@
     = link_to image_tag("logo.png", alt: "exhibition_logo", class: "exhibition_logo"), "#"
   .exhibitionPage__main
     .exhibitionPage__main__contents
-      = form_for ("") do |f|
+      = form_for "@item" do |f|
         .exhibitionPage__main__contents__image
           .exhibitionPage__main__contents__image__title
             %label.sab-title 出品画像
@@ -17,8 +17,7 @@
               .exhibitionPage__main__contents__image__texts__text__icon
                 = icon('fas', 'camera fa-2x', class: 'icon')
               .exhibitionPage__main__contents__image__texts__text__instruction
-                %center ドラッグアンドドロップ
-                %center またはクリックしてファイルをアップロード
+                %center クリックしてファイルをアップロード
         .exhibitionPage__main__contents__product
           .exhibitionPage__main__contents__product__name-box
             .exhibitionPage__main__contents__product__name-box__name

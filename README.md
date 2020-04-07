@@ -28,7 +28,7 @@
 - has_one late
 
 
-## item_imagesテーブル
+## imagesテーブル
 |column|Type|Options|
 |------|----|-------|
 |image|string|null: false|
