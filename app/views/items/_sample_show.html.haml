@@ -5,6 +5,12 @@
         .main1__show__contents--top__itemBox
           %h2.main1__show__contents--top__itemBox__name
             product3
+            .settingBtn
+              = icon('fas', 'ellipsis-v')
+              .settingBtn__list
+                = link_to '削除', "#", method: :delete
+                = link_to '編集', "#", method: :delete
+
           .main1__show__contents--top__itemBox__body
             %ul
               %li
@@ -71,6 +77,11 @@
                   = icon('fa', 'flag')
                   不適切な商品の通報
 
+        .main1__show__contents--top__purchaseBox
+          = link_to items_sample_show2_path , class: "buyBtn" do
+            .main1__show__contents--top__purchaseBox__btn
+              %h1.comment 購入画面に進む
+
         .main1__show__contents--top__commentBox
           %form#new_comment.new_comment
             %textarea
@@ -94,3 +105,4 @@
             = icon('fa', 'angle-right', class: "anglerightBtn")
       .main1__show__contents--relatedItems
         = link_to "ベビー・キッズをもっと見る", "#", class: "items"
+-# - if current_user.id == exhibition.user_id
