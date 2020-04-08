@@ -3,17 +3,16 @@
     = link_to image_tag("logo.png", alt: "exhibition_logo", class: "exhibition_logo"), "#"
   .exhibitionPage__main
     .exhibitionPage__main__contents
-      = form_for "@item" do |f|
+      = form_with model: @item, local: true do |f|
         .exhibitionPage__main__contents__image
           .exhibitionPage__main__contents__image__title
             %label.sab-title 出品画像
             %span.required 必須
           .exhibitionPage__main__contents__image__explanation
             %p 最大10枚までアップロードできます
-          .exhibitionPage__main__contents__image__texts
-            = f.label :image, class: 'form__mask__image' do
-              = f.file_field :image, class: 'hidden'
+          = f.fields_for :images do |i|
             .exhibitionPage__main__contents__image__texts__text
+              = f.file_field :src, class: 'hidden'
               .exhibitionPage__main__contents__image__texts__text__icon
                 = icon('fas', 'camera fa-2x', class: 'icon')
               .exhibitionPage__main__contents__image__texts__text__instruction
@@ -73,117 +72,119 @@
                 %option{:value => "4"} やや傷や汚れあり
                 %option{:value => "5"} 傷や汚れあり
                 %option{:value => "6"} 全体的に状態が悪い
-      .exhibition__delivery
-        .exhibition__delivery__title
-          配送について
-        .exhibition__delivery__charges
-          .exhibition__delivery__charges__top
-            配送料の負担
-            %span 必須
-          .exhibition__delivery__charges__bottom
-            %select.changes
-              %option 選択してください
-              %option 送料込み (出品者負担)
-              %option 着払い (購入者負担)
-        .exhibition__delivery__area
-          .exhibition__delivery__area__top
-            発送元の地域
-            %span 必須
-          .exhibition__delivery__area__bottom
-            %select.changes
-              %option 選択してください
-              %option 北海道
-              %option 青森県
-              %option 岩手県
-              %option 宮城県
-              %option 秋田県
-              %option 山形県
-              %option 福島県
-              %option 茨城県
-              %option 栃木県
-              %option 群馬県
-              %option 埼玉県
-              %option 千葉県
-              %option 東京都
-              %option 神奈川県
-              %option 新潟県
-              %option 富山県
-              %option 石川県
-              %option 福井県
-              %option 山梨県
-              %option 長野県
-              %option 岐阜県
-              %option 静岡県
-              %option 愛知県
-              %option 三重県
-              %option 滋賀県
-              %option 京都府
-              %option 大阪府
-              %option 兵庫県
-              %option 奈良県
-              %option 和歌山県
-              %option 鳥取県
-              %option 島根県
-              %option 岡山県
-              %option 広島県
-              %option 山口県
-              %option 徳島県
-              %option 香川県
-              %option 愛媛県
-              %option 高知県
-              %option 福岡県
-              %option 佐賀県
-              %option 長崎県
-              %option 熊本県
-              %option 大分県
-              %option 宮崎県
-              %option 鹿児島県
-              %option 沖縄県
-              %option 未定
-        .exhibition__delivery__date
-          .exhibition__delivery__date__top
-            発送までの日数
-            %span 必須
-          .exhibition__delivery__date__bottom
-            %select.changes
-              %option 選択してください
-              %option 1~2日で発送
-              %option 2~3日で発送
-              %option 4~7日で発送
-      .exhibition__price
-        .exhibition__price__range
-          価格（¥300〜9,999,999)
-        .exhibition__price__info
-          .exhibition__price__info__value
-            販売価格
-            %span.tag 必須
-            %span.mark ¥
-            %input{autocomplete: "off",name: "price",placeholder: "0",type: "number",value: ""}
-          .exhibition__price__info__fee
-            販売手数料（10%）
-            %span -
-          .exhibition__price__info__half-way
-            -
-          .exhibition__price__info__profit
-            販売利益
-            %span -
-        .exhibition__price__selection
-          %button.finish 出品する
-          %button.saving 下書きに保存
-          =link_to "もどる","#"
-        .exhibition__price__rules
-          禁止されている
-          =link_to "行為","#"
-          および
-          =link_to "出品物","#"
-          を必ずご確認ください。
-          =link_to "偽ブランド品", "#"
-          や
-          =link_to "盗品物","#"
-          などの販売は犯罪であり、法律により処罰される可能性があります。
-          また、出品をもちまして
-          =link_to "加盟店規約","#"
-          に同意したことになります。
+        .exhibition__delivery
+          .exhibition__delivery__title
+            配送について
+          .exhibition__delivery__charges
+            .exhibition__delivery__charges__top
+              配送料の負担
+              %span 必須
+            .exhibition__delivery__charges__bottom
+              %select.changes
+                %option 選択してください
+                %option 送料込み (出品者負担)
+                %option 着払い (購入者負担)
+          .exhibition__delivery__area
+            .exhibition__delivery__area__top
+              発送元の地域
+              %span 必須
+            .exhibition__delivery__area__bottom
+              %select.changes
+                %option 選択してください
+                %option 北海道
+                %option 青森県
+                %option 岩手県
+                %option 宮城県
+                %option 秋田県
+                %option 山形県
+                %option 福島県
+                %option 茨城県
+                %option 栃木県
+                %option 群馬県
+                %option 埼玉県
+                %option 千葉県
+                %option 東京都
+                %option 神奈川県
+                %option 新潟県
+                %option 富山県
+                %option 石川県
+                %option 福井県
+                %option 山梨県
+                %option 長野県
+                %option 岐阜県
+                %option 静岡県
+                %option 愛知県
+                %option 三重県
+                %option 滋賀県
+                %option 京都府
+                %option 大阪府
+                %option 兵庫県
+                %option 奈良県
+                %option 和歌山県
+                %option 鳥取県
+                %option 島根県
+                %option 岡山県
+                %option 広島県
+                %option 山口県
+                %option 徳島県
+                %option 香川県
+                %option 愛媛県
+                %option 高知県
+                %option 福岡県
+                %option 佐賀県
+                %option 長崎県
+                %option 熊本県
+                %option 大分県
+                %option 宮崎県
+                %option 鹿児島県
+                %option 沖縄県
+                %option 未定
+          .exhibition__delivery__date
+            .exhibition__delivery__date__top
+              発送までの日数
+              %span 必須
+            .exhibition__delivery__date__bottom
+              %select.changes
+                %option 選択してください
+                %option 1~2日で発送
+                %option 2~3日で発送
+                %option 4~7日で発送
+        .exhibition__price
+          .exhibition__price__range
+            価格（¥300〜9,999,999)
+          .exhibition__price__info
+            .exhibition__price__info__value
+              販売価格
+              %span.tag 必須
+              %span.mark ¥
+              %input{autocomplete: "off",name: "price",placeholder: "0",type: "number",value: ""}
+            .exhibition__price__info__fee
+              販売手数料（10%）
+              %span -
+            .exhibition__price__info__half-way
+              -
+            .exhibition__price__info__profit
+              販売利益
+              %span -
+          =f.submit class: 'submit_btn'
+          .exhibition__price__selection
+            .exhibition__price__selection.finish
+              出品する
+            %button.saving 下書きに保存
+            =link_to "もどる","#"
+          .exhibition__price__rules
+            禁止されている
+            =link_to "行為","#"
+            および
+            =link_to "出品物","#"
+            を必ずご確認ください。
+            =link_to "偽ブランド品", "#"
+            や
+            =link_to "盗品物","#"
+            などの販売は犯罪であり、法律により処罰される可能性があります。
+            また、出品をもちまして
+            =link_to "加盟店規約","#"
+            に同意したことになります。
   .footer1
     .footer1__inner
       %nav.footer1__inner__nav

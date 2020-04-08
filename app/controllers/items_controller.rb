@@ -5,11 +5,16 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
-    @item.item_images.new
+    @item.images.new
   end
 
   def create
-    Item.create(item_params)
+    @item = Item.new(item_params)
+    if @item.save
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   def destroy
@@ -22,9 +27,11 @@ class ItemsController < ApplicationController
   def sample_show2
 
   end
+  
   private
+
   def item_params
-    # params.permit(:)
+    params.require(:item).permit(:name, :price, :explain, :postage, :region, :state, :shipping_date, :size,:brand_id, :category_id, :user_id, :item_status, images_attributes: [:src])
   end
 
 end
