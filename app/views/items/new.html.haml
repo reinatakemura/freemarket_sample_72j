@@ -8,28 +8,30 @@
           .exhibitionPage__main__contents__image__title
             %label.sab-title 出品画像
             %span.required 必須
-          .exhibitionPage__main__contents__image__explanation
+          .exhibitionPage__main__contents__image__explanation#image-box
             %p 最大10枚までアップロードできます
-          = f.fields_for :images do |i|
-            .exhibitionPage__main__contents__image__texts__text
-              = f.file_field :src, class: 'hidden'
-              .exhibitionPage__main__contents__image__texts__text__icon
-                = icon('fas', 'camera fa-2x', class: 'icon')
-              .exhibitionPage__main__contents__image__texts__text__instruction
-                %center クリックしてファイルをアップロード
+            = f.fields_for :images do |i|
+              = f.label :src, class: 'form-image' do
+                .exhibitionPage__main__contents__image__texts__text.js-file_group{data: {index: "image.index"}}
+                  -# = f.file_field :src, class: 'js-file'
+                  %span.js-remove 削除
+                  .exhibitionPage__main__contents__image__texts__text__icon
+                    = icon('fas', 'camera fa-2x', class: 'icon')
+                  .exhibitionPage__main__contents__image__texts__text__instruction
+                    %center クリックしてファイルをアップロード
         .exhibitionPage__main__contents__product
           .exhibitionPage__main__contents__product__name-box
             .exhibitionPage__main__contents__product__name-box__name
               %label.sab-title 商品名
               %span.required 必須
             .exhibitionPage__main__contents__product__name-box__text
-              = f.text_field :content, class: 'name__text', placeholder: '40文字まで'
+              = f.text_field :name, class: 'name__text', placeholder: '40文字まで'
           .exhibitionPage__main__contents__product__explanation-box
             .exhibitionPage__main__contents__product__explanation-box__explanation
               %label.sab-title 商品の説明
               %span.required 必須
             .exhibitionPage__main__contents__product__explanation-box__text
-              = f.text_area :content, class: 'explanation__text', placeholder: '商品の説明（必須1,000文字以内）&#13;&#10;（色、素材、重さ、定価、注意点など）&#13;&#10;&#13;&#10;例）2010年頃に1万円で購入したジャケットです。ライトグレーで傷はありません。合わせてやすいのでオススメです！'.html_safe 
+              -# = f.text_area :explain, class: 'explanation__text', placeholder: '商品の説明（必須1,000文字以内）&#13;&#10;（色、素材、重さ、定価、注意点など）&#13;&#10;&#13;&#10;例）2010年頃に1万円で購入したジャケットです。ライトグレーで傷はありません。合わせてやすいのでオススメです！'.html_safe 
         .exhibitionPage__main__contents__detail
           .exhibitionPage__main__contents__detail__title
             %h1 商品の詳細
@@ -38,7 +40,7 @@
               %label.sab-title カテゴリー
               %span.required 必須
             .exhibitionPage__main__contents__detail__category__choose
-              %select{:name => "category"}
+              -# %select{:name => "category"}
                 %option{:value => ""} 選択してください
                 %option{:value => "1"} レディース
                 %option{:value => "2"} メンズ
@@ -58,13 +60,13 @@
               %label.sab-title ブランド
               %span 任意
             .exhibitionPage__main__contents__detail__brand__text
-              = f.text_field :content, class: 'brand_text', placeholder: '例）ユニクロ'
+              -# = f.text_field :content, class: 'brand_text', placeholder: '例）ユニクロ'
           .exhibitionPage__main__contents__detail__condition
             .exhibitionPage__main__contents__detail__condition__title
               %label.sab-title 商品の状態
               %span.required 必須
             .exhibitionPage__main__contents__detail__condition__choose
-              %select{:name => "condition"}
+              -# %select{:name => "condition"}
                 %option{:value => ""} 選択してください
                 %option{:value => "1"} 新品、未使用
                 %option{:value => "2"} 未使用に近い
@@ -157,7 +159,7 @@
               販売価格
               %span.tag 必須
               %span.mark ¥
-              %input{autocomplete: "off",name: "price",placeholder: "0",type: "number",value: ""}
+              -# %input{autocomplete: "off",name: "price",placeholder: "0",type: "number",value: ""}
             .exhibition__price__info__fee
               販売手数料（10%）
               %span -
@@ -166,10 +168,9 @@
             .exhibition__price__info__profit
               販売利益
               %span -
-          =f.submit class: 'submit_btn'
+          
           .exhibition__price__selection
-            .exhibition__price__selection.finish
-              出品する
+            =f.submit value: '投稿する', class: 'exhibition__price__selection.finish'
             %button.saving 下書きに保存
             =link_to "もどる","#"
           .exhibition__price__rules
