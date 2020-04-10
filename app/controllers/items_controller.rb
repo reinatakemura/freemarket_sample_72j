@@ -8,6 +8,9 @@ class ItemsController < ApplicationController
   end
 
   def destroy
+    @item = Item.find(params[:id])
+    @item.destroy
+    redirect_to root_path
   end
 
   def sample_show
@@ -17,9 +20,10 @@ class ItemsController < ApplicationController
   def sample_show2
 
   end
+  
   private
   def item_params
-    params.permit(:)
+    params.require(:item).permit(:name, :price, :explain, :postage, :region, :state, :shopping_date,:size, :brand_id, :category_id, :user_id, :item_status)
   end
 
 end

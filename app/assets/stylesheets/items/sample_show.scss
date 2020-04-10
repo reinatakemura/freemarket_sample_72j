@@ -16,6 +16,38 @@
             text-align: center;
             font-weight: bold;
             font-size: 24px;
+
+            .settingBtn {
+              float: right;
+              cursor: pointer;
+              &:hover .settingBtn__list {
+                display: block;
+              };
+              &__list {
+                cursor: pointer;
+                position: absolute;
+                text-align: center;
+                width: 48px;
+                border: 1px solid #ddd;
+                display: none;
+                box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+                border-radius: 3px;
+                a {
+                  display: block;
+                  padding: 5px;
+                  text-decoration: none;
+                  color: #3CCACE;
+                  font-size: 15px;
+                  z-index: 1;
+
+                  &:hover {
+                    background-color: red;
+                    color: #fff;
+                  }
+                }
+              }
+            };
+
           }
           &__body {
             margin: 16px 0 0;
@@ -120,6 +152,27 @@
             }
           }
 
+        }
+        
+        &__purchaseBox {
+          padding: 24px;
+          background-color: #fff;
+          margin: 10px 0;
+          .buyBtn {
+            text-decoration: none;
+          }
+          &__btn {
+            width: 100%;
+            height: 60px;
+            background: #ea352d;
+            h1.comment {
+              color: #fff;
+              text-align: center;
+              font-weight: 600;
+              font-size: 2.0rem;
+              padding-top: 7px;
+            }
+          }
         }
         &__commentBox {
           padding: 24px;
