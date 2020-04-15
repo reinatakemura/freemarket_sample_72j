@@ -77,6 +77,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'haml-rails'
 
 gem 'devise'
+gem 'devise-i18n'
+gem 'devise-i18n-views'
 
 gem 'font-awesome-sass', '~> 5.4.1'
 
@@ -85,3 +87,6 @@ gem 'pry-rails'
 gem 'active_hash'
 gem 'carrierwave'
 gem 'mini_magick'
+
+gem 'payjp'
+gem 'dotenv-rails'

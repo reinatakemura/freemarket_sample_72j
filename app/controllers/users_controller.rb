@@ -4,4 +4,6 @@ class UsersController < ApplicationController
     @side1 = ["売上・振込申請","ポイント"]
     @side2 = ["プロフィール","発送元・お届け先住所変更","支払い方法","メール/パスワード","本人情報","電話番号の確認","ログアウト"]
   end
+  Payjp.api_key = PAYJP_SECRET_KEY
+  customer = Payjp::Customer.create(card: params[:payjp_token])
 end
