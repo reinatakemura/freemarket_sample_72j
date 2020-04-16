@@ -12,7 +12,7 @@
 |region|string|null:false|
 |prefecture_id|integer|null:false|
 |shipping_date|integer|null: false|
-|brand_id|integer|null:false, foreign_key: true|
+|brand|integer|null:false|
 |category_id|integer|null:false, foreign_key: true|
 |user_id|integer|null:false, foreign_key: true|
 |item_status|string|null: false|
@@ -94,17 +94,6 @@
 - belongs_to item
 
 
-
-## brandsテーブル
-|column|Type|Options|
-|------|----|-------|
-|name|string|null: false|
-
-### Association
-- has_many items
-- has_many categories through :brand-category
-
-
 ## categoriesテーブル
 |column|Type|Options|
 |------|----|-------|
@@ -112,18 +101,7 @@
 
 ### Association
 - has_many items
-- has_many brands through :brand-category
 
-
-## brand-categoriesテーブル
-|column|Type|Options|
-|------|----|-------|
-|category_id|integer|null: false, foreign_key: true|
-|brand_id|integer|null: false, foreign_key: true|
-
-### Association
-- belongs_to bland
-- belongs_to category
 
 ## messagesテーブル
 |column|Type|Options|

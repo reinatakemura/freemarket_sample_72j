@@ -13,9 +13,8 @@ class Item < ApplicationRecord
   # has_one :late
   belongs_to :user
 
-  # belongs_to :brand
   has_one :buyer
-  # def item_images
+  # def item_image
   #   return ItemsImage.find_by(item_id: self.id)
   # end
 

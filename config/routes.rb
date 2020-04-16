@@ -6,8 +6,8 @@ Rails.application.routes.draw do
     post 'addresses', to: 'users/registrations#create_address'
   end
   root 'top_page#index'
-  resources :users, only: [:new]
-
+  
+  resources :users, only: [:show]
   resources :items, only: [:new, :create, :destroy, :edit, :show]
     resources :items do    
       get :purchase, on: :member  

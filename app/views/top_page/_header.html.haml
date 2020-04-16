@@ -3,7 +3,8 @@
     .header__interior__main
       .header__interior__main__icon
         %href.tag
-          = image_tag asset_path("logo/logo.png"), size: "150x45"
+          =link_to root_path do
+            = image_tag asset_path("logo/logo.png"), size: "150x45"
       .header__interior__main__search-box
         = form_for ("") do |f|
           = f.text_field :content, class: 'form__search', placeholder: 'キーワードから探す'
@@ -25,5 +26,5 @@
         - else
           .header__interior__nav__right__logout
             = link_to('ログアウト', destroy_user_session_path, method: :delete)
-            = link_to('マイページ', "#")
+            = link_to('マイページ', user_path(current_user.id))
             

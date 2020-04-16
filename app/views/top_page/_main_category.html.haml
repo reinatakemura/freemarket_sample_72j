@@ -9,23 +9,25 @@
         %li.category__box__lists__list
           .category__box__lists__list__image
             - if item.buyer_id.present?
-              =link_to image_tag( item.item_image.image.to_s, class:"image"), root_path
+              =link_to root_path do
+                =image_tag item.item_images.first.image.to_s, class:"image"
               .category__box__lists__list__sold
                 .category__box__lists__list__sold__inner
                   %p SOLD
                   .category__box__lists__list__sold__inner__back
             - else
-              =link_to item_path(item) do
-                -# =image_tag image.image.to_s, class:"image"
-                .category__box__lists__list__text
-                  .category__box__lists__list__text__name
-                    = item.name
-                  .category__box__lists__list__text__data
-                    .category__box__lists__list__text__data__price
-                      = item.price + "円"
-                      %p (税込)
-                    .category__box__lists__list__text__data__quality
-                      .category__box__lists__list__text__data__quality__icon
-                        = icon('fa', 'star')
-                      .category__box__lists__list__text__data__quality__value
-                        -# =item.user.profile.late_count
+              =link_to root_path do
+                =image_tag item.item_images.first.image.to_s, class:"image"
+            .category__box__lists__list__text
+              .category__box__lists__list__text__name
+                = item.name
+              .category__box__lists__list__text__data
+                .category__box__lists__list__text__data__price
+                  = item.price.to_s + "円"
+                  %p (税込)
+                .category__box__lists__list__text__data__quality
+                  .category__box__lists__list__text__data__quality__icon
+                    = icon('fa', 'star')
+                  .category__box__lists__list__text__data__quality__value
+                    -# = item.user.profile.late_count
+
