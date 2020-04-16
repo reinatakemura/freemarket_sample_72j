@@ -89,3 +89,5 @@ gem 'active_hash'
 gem 'pry-rails'
 
 gem 'fog-aws'
+
+gem 'ancestry'
