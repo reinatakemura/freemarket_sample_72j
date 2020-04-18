@@ -3,8 +3,9 @@
 #
 # Examples:
 #
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
+# Character.create(name: 'Luke', movie: movies.first)
+
 lady = Category.create(name: "レディース")
 man = Category.create(name: "メンズ")
 baby = Category.create(name: "ベビー・キッズ")

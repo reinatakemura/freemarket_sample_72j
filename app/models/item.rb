@@ -29,6 +29,6 @@ class Item < ApplicationRecord
   validates :postage,         presence: true
   validates :prefecture,      presence: true
   validates :shipping_date,   presence: true
-  validates :category,        presence: true
+  validates :category_id,     presence: true
   validates :item_status,     presence: true
 end

@@ -3,6 +3,15 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new
     @item.item_images.new
+
+    # @parents = Category.all.order("id ASC").limit(13)
+    @category_parent_array = ["---"]
+    #データベースから、親カテゴリーのみ抽出し、配列化 
+    Category.where(ancestry: nil).each do |parent|
+      @category_parent_array << parent.name
+    # @category_parent_array = Category.where(ancestry: nil)
+    end
+    
   end
 
   def create
@@ -36,7 +45,7 @@ class ItemsController < ApplicationController
   end
   private
   def item_params
-    params.require(:item).permit(:name, :price, :explain, :postage, :brand, :category, :prefecture_id, :shipping_date, :item_status, item_images_attributes: [:image, :_destroy, :id]).merge(user_id: current_user.id)
+    params.require(:item).permit(:name, :price, :explain, :postage, :brand, :category_id, :prefecture_id, :shipping_date, :item_status, item_images_attributes: [:image, :_destroy, :id]).merge(user_id: current_user.id)
   end
 
   def user_params
