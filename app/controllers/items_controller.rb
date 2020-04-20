@@ -9,10 +9,10 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
-    redirect_to root_path
+      redirect_to root_path
     else
-    flash.now[:alert] = '入力に誤りがあります'
-    render :new
+      flash.now[:alert] = '入力に誤りがあります'
+      render :new
     end
   end
   
@@ -35,24 +35,24 @@ class ItemsController < ApplicationController
     @card = Card.where(user_id: current_user.id).first if Card.where(user_id: current_user.id).present?
     @prefecture = Prefecture.find(@address.prefecture_id)
     if @card.present?
-    Payjp.api_key = ENV["PAYJP_PRIVATE_KEY"]
-    customer = Payjp::Customer.retrieve(@card.customer_id)
-    @card_information = customer.cards.retrieve(@card.card_id)
-    Payjp.api_key = ENV["PAYJP_PRIVATE_KEY"]
-    Payjp::Charge.create(
-    amount: @item.price,
-    customer: @card.customer_id,
-    currency: 'jpy'
-    )
+      Payjp.api_key = ENV["PAYJP_PRIVATE_KEY"]
+      customer = Payjp::Customer.retrieve(@card.customer_id)
+      @card_information = customer.cards.retrieve(@card.card_id)
+      Payjp.api_key = ENV["PAYJP_PRIVATE_KEY"]
+      Payjp::Charge.create(
+      amount: @item.price,
+      customer: @card.customer_id,
+      currency: 'jpy'
+      )
     end
   end
   
   def payment
     @buyer = Buyer.new(user_id: current_user.id, item_id: params[:id])
     if @buyer.save
-    redirect_to complete_path
+      redirect_to complete_path
     else
-    render :purchase
+      render :purchase
     end
   end
   
