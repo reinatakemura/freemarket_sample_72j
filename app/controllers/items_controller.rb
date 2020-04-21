@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only:[:show, :destroy, :purchase, :payment]
+  before_action :set_item, only:[:show, :destroy, :edit, :update, :purchase, :payment]
   
   def new
     @item = Item.new
@@ -39,6 +39,8 @@ class ItemsController < ApplicationController
   end
   
   def show
+    @items = Item.includes(:item_images).order(created_at: :desc)
+    @images = ItemImage.order(created_at: :desc)
     @buyer_item = Buyer.pluck(:item_id)
   end
   
@@ -52,7 +54,15 @@ class ItemsController < ApplicationController
   
   def edit
   end
-  
+
+  def update
+    if @item.update(item_params)
+      redirect_to item_path
+    else
+      render :edit
+    end
+  end
+
   def purchase
     @address = Address.find(params[:id])
     @card = Card.where(user_id: current_user.id).first if Card.where(user_id: current_user.id).present?

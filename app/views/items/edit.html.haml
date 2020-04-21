@@ -1,0 +1,136 @@
+.exhibitionPage
+  .header
+    = link_to image_tag("logo.png", alt: "exhibition_logo", class: "exhibition_logo"), root_path
+  .exhibitionPage__main
+    - if flash.now[:alert]
+      .flash
+        = flash.now[:alert]
+    .exhibitionPage__main__contents
+      = form_with(model: @item, local: true) do |form|
+        .exhibitionPage__main__contents__image
+          .exhibitionPage__main__contents__image__title
+            %label.sab-title 出品画像
+            %span.required 必須
+            %p 最大5枚までアップロードできます
+          .exhibitionPage__main__contents__image__explanation
+            .prev-content
+              - @item.item_images.each do |image|
+                .preview-box
+                  .upper-box
+                    = image_tag image.image.url, width: "112", height: "112", alt: "preview"
+                  .lower-box
+                    .delete-box
+                      .delete-btn
+                        %span 削除
+            .label-content
+              = form.label :"item_images_attributes_#{@item.item_images.length}_image", class: "label-box", id: "label-box--#{@item.item_images.length}" do
+                %pre.label-box__text-visible クリックしてファイルをアップロード
+            .hidden-content
+              = form.fields_for :item_images do |i|
+                = i.file_field :image, class: "hidden-field"
+                = i.check_box:_destroy, class: "hidden-checkbox"
+              - @item.item_images.length.upto(4) do |i|
+                %input{name: "item[item_images_attributes][#{i}][image]", id: "item_item_images_attributes_#{i}_image", class:"hidden-field", type:"file"}
+        .exhibitionPage__main__contents__product
+          .exhibitionPage__main__contents__product__name-box
+            .exhibitionPage__main__contents__product__name-box__name
+              %label.sab-title 商品名
+              %span.required 必須
+            .exhibitionPage__main__contents__product__name-box__text
+              = form.text_field :name, class: 'name__text', placeholder: '40文字まで'
+          .exhibitionPage__main__contents__product__explanation-box
+            .exhibitionPage__main__contents__product__explanation-box__explanation
+              %label.sab-title 商品の説明
+              %span.required 必須
+            .exhibitionPage__main__contents__product__explanation-box__text
+              = form.text_area :explain, class: 'explanation__text', placeholder: '商品の説明（必須1,000文字以内）&#13;&#10;（色、素材、重さ、定価、注意点など）&#13;&#10;&#13;&#10;例）2010年頃に1万円で購入したジャケットです。ライトグレーで傷はありません。合わせてやすいのでオススメです！'.html_safe 
+        .exhibitionPage__main__contents__detail
+          .exhibitionPage__main__contents__detail__title
+            %h1 商品の詳細
+          .exhibitionPage__main__contents__detail__category
+            .exhibitionPage__main__contents__detail__category__title
+              %label.sab-title カテゴリー
+              %span.required 必須
+            .exhibitionPage__main__contents__detail__category__choose
+              =form.select :category, [[""],["レディース", 1],["メンズ", 2],["ベビー・キッズ", 3],["インテリア・住まい・小物", 4]]
+          .exhibitionPage__main__contents__detail__brand
+            .exhibitionPage__main__contents__detail__brand__title
+              %label.sab-title ブランド
+              %span 任意
+            .exhibitionPage__main__contents__detail__brand__text
+              =form.select :brand, [[""],["シャネル"],["ナイキ"],["ルイヴィトン"],["シュプリーム"],["アディダス"]]
+          .exhibitionPage__main__contents__detail__condition
+            .exhibitionPage__main__contents__detail__condition__title
+              %label.sab-title 商品の状態
+              %span.required 必須
+            .exhibitionPage__main__contents__detail__condition__choose
+              =form.select :item_status, ["","新品、未使用","未使用に近い","目立った傷や汚れなし","目立った傷や汚れなし","やや傷や汚れあり","傷や汚れあり","全体的に状態が悪い"]
+        .exhibition__delivery
+          .exhibition__delivery__title
+            配送について
+          .exhibition__delivery__charges
+            .exhibition__delivery__charges__top
+              配送料の負担
+              %span 必須
+            .exhibition__delivery__charges__bottom
+              =form.select :postage, ["","送料込み (出品者負担)","着払い (購入者負担)"]
+          .exhibition__delivery__area
+            .exhibition__delivery__area__top
+              発送元の地域
+              %span 必須
+            .exhibition__delivery__area__bottom
+              =form.collection_select :prefecture_id, Prefecture.all, :id, :name, prompt: ""
+          .exhibition__delivery__date
+            .exhibition__delivery__date__top
+              発送までの日数
+              %span 必須
+            .exhibition__delivery__date__bottom
+              =form.select :shipping_date, ["","1~2日で発送","2~3日で発送","4~7日で発送"], class: "changes"
+        .exhibition__price
+          .exhibition__price__range
+            価格（¥300〜9,999,999)
+          .exhibition__price__info
+            .exhibition__price__info__value
+              販売価格
+              %span.tag 必須
+              %span.mark ¥
+              =form.number_field :price, id: "changes", placeholder: "0"
+            .exhibition__price__info__fee
+            -# 追加実装用↓
+            -#   販売手数料（10%）
+            -#   #fee -
+            -# .exhibition__price__info__half-way
+            -# .exhibition__price__info__profit
+            -#   販売利益
+            -#   #result -
+
+          .exhibition__price__selection
+            =form.submit '編集する',class: 'exhibition__price__selection.finish'
+            =link_to "もどる",root_path
+          .exhibition__price__rules
+            禁止されている
+            =link_to "行為","#"
+            および
+            =link_to "出品物","#"
+            を必ずご確認ください。
+            =link_to "偽ブランド品", "#"
+            や
+            =link_to "盗品物","#"
+            などの販売は犯罪であり、法律により処罰される可能性があります。
+            また、出品をもちまして
+            =link_to "加盟店規約","#"
+            に同意したことになります。
+    .footer1
+      .footer1__inner
+        %nav.footer1__inner__nav
+          %ul.footer1__inner__nav__category
+            %li
+              = link_to "プライバシーポリシー", "#", class: "privacyPolicy"
+            %li
+              = link_to "フリマ利用規約", "#", class: "terms"
+            %li
+              = link_to "特定商取引に関する表記", "#", class: "notation"
+        = link_to image_tag("logo-white.png", alt: "login_logo", class: "login_logo"), root_path
+        %p
+          %small
+            &copy Furima, Inc.

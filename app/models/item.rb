@@ -28,5 +28,7 @@ class Item < ApplicationRecord
   validates :shipping_date,   presence: true
   validates :category,        presence: true
   validates :item_status,     presence: true
+  validates :item_images,     presence: true
+
 
 end

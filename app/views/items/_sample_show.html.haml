@@ -11,20 +11,17 @@
               .settingBtn
                 = icon('fas', 'ellipsis-v')
                 .settingBtn__list
-                  = link_to '編集', "#", method: :get
+                  = link_to '編集', edit_item_path, method: :get
                   = link_to '削除', item_path(@item.id), data: { confirm: "本当に削除しますか？" }, method: :delete
 
           .main1__show__contents--top__itemBox__body
             %ul
               %li
-                = image_tag "https://s3-ap-northeast-1.amazonaws.com/mercarimaster/uploads/captured_image/content/13/a007.png", class:"main_image", size: "560x346"
+                =image_tag @item.item_images.first.image.to_s, class:"main_image", size: "560x346"
                 %ul
-                  %li
-                    = image_tag "https://s3-ap-northeast-1.amazonaws.com/mercarimaster/uploads/captured_image/content/13/a007.png", class:"sub_image",size: "140x87"
-                  %li
-                    = image_tag "https://s3-ap-northeast-1.amazonaws.com/mercarimaster/uploads/captured_image/content/14/a001.png", class:"sub_image",size: "140x87"
-                  %li
-                    = image_tag "https://s3-ap-northeast-1.amazonaws.com/mercarimaster/uploads/captured_image/content/15/a003.png", class:"sub_image",size: "140x87"
+                  - @item.item_images.each_with_index do |item_image, i|
+                    %li
+                      = image_tag item_image.image.url, class:"sub_image", size: "110x70"
               
                   
           .main1__show__contents--top__itemBox__price

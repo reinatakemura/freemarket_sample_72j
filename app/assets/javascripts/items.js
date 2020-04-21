@@ -78,7 +78,7 @@ $(document).on('turbolinks:load', function(){
       if ($(`#item_item_images_attributes_${id}__destroy`).length == 0) {
         $(`#item_item_images_attributes_${id}_image`).val("");
         var count = $('.preview-box').length;
-        if (count == 4) {
+        if (count == 5) {
           $('.label-content').show();
         }
         setLabel(count);
@@ -87,7 +87,7 @@ $(document).on('turbolinks:load', function(){
         }
       } else {
         $(`#item_item_images_attributes_${id}__destroy`).prop('checked',true);
-        if (count == 4) {
+        if (count == 5) {
           $('.label-content').show();
         }
         setLabel();

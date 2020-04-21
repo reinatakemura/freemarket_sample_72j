@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   root 'top_page#index'
   
   resources :users, only: [:show]
-  resources :items, only: [:new, :create, :destroy, :edit, :show]
+  resources :items, only: [:new, :create, :destroy, :edit, :update, :show]
     resources :items do    
       get :purchase, on: :member  
       post :payment, on: :member
